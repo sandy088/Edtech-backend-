@@ -139,6 +139,7 @@ exports.login = async (req, res) => {
 			});
 		}
 
+		
 		// Generate JWT token and Compare Password
 		if (await bcrypt.compare(password, user.password)) {
 			const token = jwt.sign(
