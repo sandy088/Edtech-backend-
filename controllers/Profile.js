@@ -18,11 +18,13 @@ exports.updateProfile = async (req, res) => {
 
 		// Save the updated profile
 		await profile.save();
+		const updatedUserDetails = await User.findById(id)
 
 		return res.json({
 			success: true,
 			message: "Profile updated successfully",
 			profile,
+			updatedUserDetails
 		});
 	} catch (error) {
 		console.log(error);
@@ -90,7 +92,9 @@ exports.getAllUserDetails = async (req, res) => {
 exports.updateDisplayPicture = async (req, res) => {
     try {
       const displayPicture = req.files.displayPicture
+	  console.log("displayPicture from Server: ", displayPicture)
       const userId = req.user.id
+	  console.log("Useridfrom Server: ", userId)
       const image = await uploadImageToCloudinary(
         displayPicture,
         process.env.FOLDER_NAME,
